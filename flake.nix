@@ -26,7 +26,10 @@
       systemConfigs.default = system-manager.lib.makeSystemConfig {
         # Specify your system configuration modules here, for example,
         # the path to your system.nix.
-        modules = [ ./system.nix ];
+        modules = [
+          ./modules
+          ./system.nix
+        ];
 
         # Optionally specify extraSpecialArgs and overlays
       };
