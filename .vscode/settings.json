@@ -1,0 +1,19 @@
+{
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd",
+    "nix.formatterPath": "nixfmt",
+    "nix.serverSettings": {
+        "nixd": {
+            "formatting": {
+                "command": [
+                    "nixfmt"
+                ]
+            },
+            "options": {
+                "system-manager": {
+                    "expr": "(let self = builtins.getFlake (toString ./.); pkgs = self.inputs.nixpkgs.legacyPackages.${builtins.currentSystem}; lib = pkgs.lib; in lib.evalModules { modules = [ self.inputs.system-manager.nixosModules.default { config.nixpkgs.hostPlatform = \"x86_64-linux\"; } ]; specialArgs = { inherit pkgs lib; nixosModulesPath = \"${pkgs.path}/nixos/modules\"; utils = import \"${pkgs.path}/nixos/lib/utils.nix\" { inherit lib pkgs; config = { }; }; }; }).options"
+                }
+            }
+        }
+    }
+}
