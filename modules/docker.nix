@@ -9,7 +9,12 @@
     (nixosModulesPath + "/virtualisation/docker.nix")
   ];
 
-  systemd.services.docker = lib.mkIf config.virtualisation.docker.enable {
-    wantedBy = lib.mkForce [ "system-manager.target" ];
+  config = lib.mkIf config.virtualisation.docker.enable {
+    systemd.services.docker = {
+      wantedBy = lib.mkForce [ "system-manager.target" ];
+    };
+    systemd.timers.docker-prune = {
+      wantedBy = lib.mkForce [ "system-manager.target" ];
+    };
   };
 }

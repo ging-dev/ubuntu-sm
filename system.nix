@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   config = {
+    nix.enable = false;
     nixpkgs.hostPlatform = "x86_64-linux";
 
     # Enable and configure services
@@ -12,7 +13,10 @@
       };
     };
 
-    # virtualisation.docker.enable = true;
+    # virtualisation.docker = {
+    #   enable = true;
+    #   autoPrune.enable = true;
+    # };
 
     environment = {
       systemPackages = with pkgs; [
@@ -24,7 +28,6 @@
           source = ./environment;
           replaceExisting = true;
         };
-        "nix/nix.conf".replaceExisting = true;
       };
     };
   };
